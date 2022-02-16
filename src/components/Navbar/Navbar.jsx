@@ -6,7 +6,7 @@ import logo from '../../assets/vinyle.png';
 import useStyles from './styles';
 
 
-const Navbar = () => {
+const Navbar = ({totalItems}) => {
 
     const classes = useStyles();
 
@@ -22,7 +22,7 @@ const Navbar = () => {
 
                     <div className={classes.button} >
                         <IconButton area-label="Show cart items" color="inherit" >
-                            <Badge badgeContent={2} color="secondary" >
+                            <Badge badgeContent={totalItems} color="secondary" >
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>                    
