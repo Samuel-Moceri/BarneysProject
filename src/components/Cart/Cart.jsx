@@ -1,5 +1,7 @@
 import React from 'react'
 import { Container, Typography, Button, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 
 import useStyles from './styles';
 import CartItem from './CartItem/CartItem';
@@ -9,7 +11,12 @@ const Cart = ({ cart }) => {
     const classes = useStyles();
     
     const EmptyCart = () => (
-        <Typography variant="subtitle1" > Vous n'avez aucun produit dans votre panier, n'hésitez pas à le remplir ! </Typography>
+        <Typography variant="subtitle1" >
+            Vous n'avez aucun produit dans votre panier
+                <Link to="/" className={classes.link} >
+                n'hésitez pas à le remplir !
+                </Link> !
+        </Typography>
     );
 
     const FilledCart = () => (
@@ -27,7 +34,7 @@ const Cart = ({ cart }) => {
                         Subtotal: { cart.subtotal.formatted_with_symbol }
                     </Typography>
                     <div>
-                        <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary">Panier Vide</Button>
+                        <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary">Supprimer le Panier</Button>
                         <Button className={classes.checkoutButton} size="large" type="button" variant="contained" color="primary">Paiement</Button>
                     </div>
             </div>
