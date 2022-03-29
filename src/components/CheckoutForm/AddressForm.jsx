@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@material-ui/core';
 import { useForm, FormProvider } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 import { commerce } from "../../library/commerce";
 
 import FormInput from './CustomTextField'
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ checkoutToken, next }) => {
     
     const [shippingCountries, setShippingCountries, ] = useState([]);
     const [shippingCountry, setShippingCountry, ] = useState('');
@@ -65,7 +66,8 @@ const AddressForm = ({ checkoutToken }) => {
         <>
             <Typography variant="h6" gutterBottom> Adresse de Livraison </Typography>
             <FormProvider { ...methods } >
-                <form >
+                <form onSubmit={methods.handleSubmit((data) => next({ ...data, setShippingCountry, shippingSubdivision, setShippingOption }))} >
+
                     <Grid container spacing={4}>
                         <FormInput name="prénom" label="Prénom" />
                         <FormInput name="nom" label="Nom" />
@@ -106,8 +108,14 @@ const AddressForm = ({ checkoutToken }) => {
                                 ))}
                             </Select>
                         </Grid>
-
                     </Grid>
+
+                    <br/>
+                    <div style={{ display:'flex', justifyContent: 'space-between' }}>
+                        <Button component={Link} to="/panier" variant="outlined" > Retour au panier </Button>
+                        <Button type="submit" variant="contained" color="primray" > Suivant </Button>
+                    </div>
+
                 </form>
             </FormProvider>
         </>
