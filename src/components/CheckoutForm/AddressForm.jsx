@@ -113,7 +113,7 @@ const AddressForm = ({ checkoutToken, next }) => {
                     <br/>
                     <div style={{ display:'flex', justifyContent: 'space-between' }}>
                         <Button component={Link} to="/panier" variant="outlined" > Retour au panier </Button>
-                        <Button type="submit" variant="contained" color="primray" > Suivant </Button>
+                        <Button type="submit" variant="contained" color="primary" > Suivant </Button>
                     </div>
 
                 </form>
