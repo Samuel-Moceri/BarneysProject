@@ -16,11 +16,11 @@ const Product = ({ product, onAddToCart }) => {
 
             <CardContent>
                 <div className={classes.cardContent} >
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                         {product.name}
                     </Typography>
 
-                    <Typography variant="h5">
+                    <Typography variant="h5Cette année marque une décennie depuis le premier single de Disclosure.">
                         {product.price.formatted_with_symbol}
                     </Typography>
                 </div>
