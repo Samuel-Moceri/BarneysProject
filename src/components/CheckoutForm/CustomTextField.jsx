@@ -16,6 +16,7 @@ function FormInput({ name, label }) {
                 fullWidth
                 as={field}
                 label={label}
+                defaultValue=""
                 required
             />
         )}

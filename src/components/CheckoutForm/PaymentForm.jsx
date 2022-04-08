@@ -14,7 +14,7 @@ const PaymentForm = ({ checkoutToken, backStep, nextStep, shippingData, onCaptur
 
         if( !stripe || !elements ) return;
 
-        const cardElement = elements.getElement(cardElement);
+        const cardElement = elements.getElement(CardElement);
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
 
@@ -46,7 +46,7 @@ const PaymentForm = ({ checkoutToken, backStep, nextStep, shippingData, onCaptur
             <Review checkoutToken={checkoutToken} />
             <Divider />
             <Typography variant="h6" gutterBottom style={{ margin:'20px 0'}}> Moyen de paiement </Typography>
-            <Elements stipe={stripePromise} >
+            <Elements stripe={stripePromise} >
                 <ElementsConsumer>
                     {({ elements, stripe }) => (
                         <form onSubmit={(e) => handleSubmit(e, elements, stripe) } >

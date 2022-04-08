@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
-import { Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button } from '@material-ui/core';
+import { Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button, CssBaseline } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import { commerce } from "../../../library/commerce";
 import useStyles from './style';
@@ -25,10 +25,10 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
             console.log(token);
             setCheckoutToken(token);
-         }catch (error){
-
+         } catch (error){
+          console.log(error)
          }
-        }
+      }
         generateToken();
     }, [cart]);
 
@@ -42,11 +42,31 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     nextStep();
   }
 
-    const Confirmation = () => (
-        <div>
-            Confirmation
-        </div>
+  let Confirmation = () => (order.customer ? (
+    <>
+      <div>
+        <Typography variant="h5">Merci de votre achat, {order.customer.firstname} {order.customer.lastname}!</Typography>
+        <Divider className={classes.divider} />
+        <Typography variant="subtitle2">Référence commande : {order.customer_reference}</Typography>
+      </div>
+      <br />
+      <Button component={Link} variant="outlined" type="button" to="/">Retour à l'Accueil</Button>
+    </>
+  ) : (
+    <div className={classes.spinner}>
+      <CircularProgress />
+    </div>
+  ));
+
+  if (error) {
+    Confirmation = () => (
+      <>
+        <Typography variant="h5">Erreur: {error}</Typography>
+        <br />
+        <Button component={Link} variant="outlined" type="button" to="/">Retour à l'Accueil</Button>
+      </>
     );
+  }
 
     const Form = () => activeStep === 0
         ? <AddressForm checkoutToken={checkoutToken} next={next} />
@@ -54,6 +74,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
     return (
         <>
+        <CssBaseline />
         <div className={classes.toolbar} />
         <main className={classes.layout}>
           <Paper className={classes.paper}>

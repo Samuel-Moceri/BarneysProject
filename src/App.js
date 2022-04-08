@@ -83,9 +83,9 @@ const App = () => {
                     <Route path='/panier' element={
                         <Cart
                             cart={cart} 
-                            handleRemoveFromCart={handleRemoveFromCart}
-                            handleEmptyCart={handleEmptyCart}
-                            handleUpdateCartQty={handleUpdateCartQty}
+                            onRemoveFromCart={handleRemoveFromCart}
+                            onEmptyCart={handleEmptyCart}
+                            onUpdateCartQty={handleUpdateCartQty}
                         />}
                     />
                     

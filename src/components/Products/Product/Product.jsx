@@ -20,7 +20,7 @@ const Product = ({ product, onAddToCart }) => {
                         {product.name}
                     </Typography>
 
-                    <Typography variant="h5Cette année marque une décennie depuis le premier single de Disclosure.">
+                    <Typography variant="h5">
                         {product.price.formatted_with_symbol}
                     </Typography>
                 </div>
