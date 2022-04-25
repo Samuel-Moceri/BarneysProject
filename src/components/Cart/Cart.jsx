@@ -11,7 +11,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
   const handleEmptyCart = () => onEmptyCart();
 
   const renderEmptyCart = () => (
-    <Typography variant="subtitle1">You have no items in your shopping cart,
+    <Typography variant="subtitle1">Vous n'avez pas de produits dans votre panier, 
       <Link className={classes.link} to="/">N'hésitez pas à remplir votre panier</Link>!
     </Typography>
   );

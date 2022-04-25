@@ -7,6 +7,7 @@ import logo from '../../assets/vinyle.png';
 import useStyles from './styles';
 
 
+
 const Navbar = ({totalItems}) => {
 
     const classes = useStyles();
@@ -20,7 +21,7 @@ const Navbar = ({totalItems}) => {
                 <Toolbar>
                     <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit" >
                         <img src={logo} alt="Commerce.js" height="25px" className={classes.image} />
-                        Barney's Groove
+                        Shop and Groove
                     </Typography>
                     <div className={classes.grow} />
                     

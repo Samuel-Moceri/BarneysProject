@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button, CssBaseline } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 import { commerce } from "../../../library/commerce";
 import useStyles from './style';
@@ -14,23 +14,25 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
-
+    const [isFinished, setIsFinished] = useState(false);
+    
     const classes = useStyles();
+    const navigate = useNavigate ();
 
- ///Create a token
- useEffect(() => {
-     const generateToken = async () => {
-         try {
+  ///Create a token
+  useEffect(() => {
+      const generateToken = async () => {
+        try {
             const token = await commerce.checkout.generateToken(cart.id , {type: 'cart'});
 
             console.log(token);
             setCheckoutToken(token);
-         } catch (error){
-          console.log(error)
-         }
+        } catch (error) {
+          navigate('/');
+        }
       }
-        generateToken();
-    }, [cart]);
+          generateToken();
+  }, [cart]);
 
   const nextStep = () => setActiveStep((previousActiveStep) => previousActiveStep + 1 );
 
@@ -42,12 +44,27 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     nextStep();
   }
 
+  const timeout = () => {
+    setTimeout(() => {
+      setIsFinished(true)
+    }, 3000);
+  }
+
   let Confirmation = () => (order.customer ? (
     <>
       <div>
         <Typography variant="h5">Merci de votre achat, {order.customer.firstname} {order.customer.lastname}!</Typography>
         <Divider className={classes.divider} />
         <Typography variant="subtitle2">Référence commande : {order.customer_reference}</Typography>
+      </div>
+      <br />
+      <Button component={Link} variant="outlined" type="button" to="/">Retour à l'Accueil</Button>
+    </>
+  ) : isFinished ? (
+    <>
+      <div>
+        <Typography variant="h5">Merci de votre achat</Typography>
+        <Divider className={classes.divider} />
       </div>
       <br />
       <Button component={Link} variant="outlined" type="button" to="/">Retour à l'Accueil</Button>
@@ -70,7 +87,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
     const Form = () => activeStep === 0
         ? <AddressForm checkoutToken={checkoutToken} next={next} />
-        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout} />
+        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout} timeout={timeout} />
 
     return (
         <>
